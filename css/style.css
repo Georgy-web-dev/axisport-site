@@ -1,5 +1,11 @@
 /* Axis Port LTD — one stylesheet, no build step, no dependencies. */
 
+/* Manrope, self-hosted (SIL Open Font Licence): no request to Google, so no visitor data leaves the site. */
+@font-face {
+  font-family: "Manrope"; font-style: normal; font-weight: 400 800; font-display: swap;
+  src: url("../fonts/manrope.woff2") format("woff2");
+}
+
 :root {
   --purple: #6d28d9;
   --purple-dark: #4c1d95;
@@ -23,17 +29,18 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  font: 400 17px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font: 400 17px/1.7 "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color: var(--body);
   background: var(--white);
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4 { color: var(--ink); line-height: 1.2; margin: 0 0 .5em; font-weight: 700; letter-spacing: -.02em; }
+h1, h2, h3, h4 { color: var(--ink); line-height: 1.15; margin: 0 0 .5em; font-weight: 800; letter-spacing: -.025em; text-wrap: balance; }
+h3, h4 { font-weight: 700; }
 h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); }
 h2 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); }
 h3 { font-size: 1.25rem; }
-p { margin: 0 0 1.1em; }
+p { margin: 0 0 1.1em; text-wrap: pretty; }
 a { color: var(--purple); }
 img { max-width: 100%; display: block; }
 
@@ -130,6 +137,17 @@ section { padding-block: clamp(56px, 8vw, 96px); }
    ponytail: delete this rule once a real petrochemicals photograph replaces img/petrochemicals.jpg */
 .img-oil { filter: hue-rotate(85deg) saturate(.85); }
 
+/* trust strip under the hero */
+.facts { border-bottom: 1px solid var(--line); background: var(--white); }
+.facts .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
+.fact { padding: 26px 22px; border-left: 1px solid var(--line); }
+.fact:first-child { border-left: 0; padding-left: 0; }
+.fact-label { display: block; font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--purple); margin-bottom: 6px; }
+.fact-value { display: block; color: var(--ink); font-weight: 600; font-size: .95rem; line-height: 1.45; }
+
+/* photos whose colours fight the palette get pulled toward it */
+.img-tone { filter: saturate(.7) hue-rotate(28deg); }
+
 /* values */
 .value { background: var(--white); border-radius: var(--radius); padding: 30px 28px; border: 1px solid var(--line); }
 .value .icon {
@@ -147,6 +165,7 @@ section { padding-block: clamp(56px, 8vw, 96px); }
 .pillar { border-left: 3px solid var(--purple); padding: 4px 0 4px 22px; }
 .pillar h3 { color: var(--purple-dark); }
 .pillar p { margin: 0; }
+.grid-2:has(> .pillar) { align-items: start; }
 
 /* product detail rows */
 .detail { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 48px; align-items: center; }
@@ -167,7 +186,7 @@ section { padding-block: clamp(56px, 8vw, 96px); }
   background: linear-gradient(100deg, rgba(35, 16, 77, .95), rgba(109, 40, 217, .8));
 }
 .cta-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.cta .wrap { position: relative; z-index: 2; }
+.cta .wrap { position: relative; z-index: 2; padding-block: clamp(64px, 9vw, 104px); }
 .cta h2 { color: var(--white); }
 .cta p { color: rgba(255, 255, 255, .85); }
 
@@ -226,4 +245,13 @@ button.btn { cursor: pointer; font-family: inherit; }
   .nav a { padding: 12px 14px; }
   .contact-grid, .footer-grid { grid-template-columns: 1fr; gap: 36px; }
   .detail:nth-child(even) .detail-media { order: 0; }
+  .facts .wrap { grid-template-columns: 1fr 1fr; }
+  .fact { padding: 20px 16px; }
+  .fact:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .fact:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+@media (max-width: 520px) {
+  .facts .wrap { grid-template-columns: 1fr; }
+  .fact { border-left: 0; padding-left: 0; }
+  .fact + .fact { border-top: 1px solid var(--line); }
 }
